@@ -3,7 +3,15 @@ clc; clear; close all;
 
 % 1. Setup DRIVE Dataset Path
 % Pointing directly to the cohort folder containing images 21-40 and 1st_manual ground truth
-driveBaseDir = 'D:\Lost_Projects\XAI dr\data\drive\training\training';
+driveBaseDir = fullfile(pwd, 'drive', 'training', 'training');
+
+if ~exist(driveBaseDir, 'dir')
+    driveBaseDir = 'D:\Lost_Projects\Netra_Rakshak_Model\drive\training\training';
+end
+
+if ~exist(driveBaseDir, 'dir')
+    driveBaseDir = 'D:\Lost_Projects\XAI dr\data\drive\training\training';
+end
 
 if ~exist(driveBaseDir, 'dir')
     % Fallback if paths were rearranged
