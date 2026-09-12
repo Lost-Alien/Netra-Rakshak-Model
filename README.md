@@ -244,7 +244,7 @@ Figure 3 illustrates a representative clinical validation run on an advanced pro
 3. **Clinical Decision Status Bar Breakdown**:
    - **System Action**: `AI Diagnostic Match` (100% concordant agreement between clinical ground truth and model output).
    - **Model Prediction**: `Proliferative DR (Level 4)`.
-   - **Model Confidence**: `85.99%` (high-confidence clinical classification firmly above the decision boundary).
+   - **Model Confidence**: `86.42%` (high-confidence clinical classification firmly above the decision boundary).
    - **Triage Recommendation**: `Referable DR (Grade 4 - P1 Emergency Ophthalmic Review)`.
 
 4. **Under-30-Second Human-in-the-Loop Clinical Protocol**:
