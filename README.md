@@ -224,32 +224,33 @@ Where:
 Neuron importance weights perform a linear combination of forward activation maps, followed by a Rectified Linear Unit (ReLU) to isolate features that positively contribute to the target retinopathy grade:
 $$L_{\mathrm{Grad\text{-}CAM}}^c = \mathrm{ReLU} \left( \sum_k \alpha_k^c A^k \right)$$
 
-The resulting 2D activation matrix is bilinearly interpolated to the original fundus dimensions ($224 \times 224$ px) and blended at 45% transparency using a thermal colormap (`jet`), creating an intuitive heat gradient ranging from 0.0 (quiescent blue) to 3.5 (critical crimson red).
+The resulting 2D activation matrix is bilinearly interpolated to the original fundus dimensions ($224 \times 224$ px) and blended at 45% transparency using a thermal colormap (`jet`), creating an intuitive normalized heat gradient ranging from 0.0 (quiescent blue) to 1.0 (critical crimson red).
 
 #### Deep Clinical Case Study: Analysis of Figure 3 (Level 4 Proliferative DR)
 
-Figure 3 illustrates a representative clinical validation run on an advanced proliferative retinopathy subject (`d48178e4a49b.png`):
+Figure 3 illustrates a representative clinical validation run on an advanced proliferative retinopathy subject:
 
 1. **Optical Pathological Manifestations (Left Panel)**:
-   - **Central Foveal Hemorrhage**: Dense, dark extravasated blood pooling directly at the foveal avascular zone (FAZ), presenting severe threat of acute vision loss.
-   - **Macular Hard Exudate Plaque**: Extensive clusters of yellowish intraretinal lipid deposits located temporally, indicating prolonged vascular hyperpermeability and chronic macular edema.
-   - **Vascular Abnormalities**: Marked venous tortuosity, caliber irregularities, and subtle peripapillary neovascularization (NVD) emerging near the nasal border of the optic disc.
+   - **Active Neovascularization (NVD/NVE)**: Fragile new vessel growth proliferating near the optic disc margins and temporal vascular arcades.
+   - **Intraretinal Hemorrhages**: Widespread blot hemorrhages and microvascular leakage across the inferotemporal and peripapillary retinal beds.
+   - **Extensive Hard Exudate Plaques**: Confluent lipid exudation forming dense clusters in the superotemporal quadrant, indicative of chronic vascular permeability.
+   - **Venous Caliber Abnormalities**: Dilated, tortuous retinal veins characteristic of high-risk proliferative disease.
 
 2. **Grad-CAM Attention Centroid Analysis (Right Panel)**:
-   - **Peak Saliency Hotspot (Deep Red, Activation 3.0 to 3.5)**: The model's attention is tightly focused upon the macular hemorrhage and primary vascular branching junction. This confirms the network recognizes sight-threatening retinal hemorrhages as the primary diagnostic driver for Grade 4 classification.
-   - **Secondary Saliency Zone (Amber/Green, Activation 1.5 to 2.5)**: A wide secondary activation field radiates temporally, enveloping the dense cluster of hard exudates and ischemic microvascular zones.
-   - **Background Invariance (Deep Blue, Activation < 0.5)**: Non-diseased peripheral retina, clear vitreous space, and circular camera vignetting exhibit zero activation, proving that the model is immune to peripheral optical flare or instrument artifacts.
+   - **Peak Saliency Hotspot (Deep Red, Activation 0.85 to 1.00)**: The model's attention is intensely concentrated across the optic disc region and inferotemporal vascular arcade, coinciding with the epicenter of active neovascularization and dense hemorrhages.
+   - **Secondary Saliency Zone (Amber/Green, Activation 0.50 to 0.75)**: Radiates outward along the major vascular arcades, encompassing neighboring ischemic zones and exudative deposits.
+   - **Background Invariance (Deep Blue, Activation < 0.20)**: Clear vitreous space, non-pathological background choroid, and circular camera vignetting exhibit zero activation, confirming complete immunity to illumination glare or camera aperture artifacts.
 
 3. **Clinical Decision Status Bar Breakdown**:
-   - **System Action**: `AI Diagnostic Match` (100% agreement between clinical ground truth and model output).
+   - **System Action**: `AI Diagnostic Match` (100% concordant agreement between clinical ground truth and model output).
    - **Model Prediction**: `Proliferative DR (Level 4)`.
-   - **Model Confidence**: `62.26%` (calibrated multi-class probability, with remaining probability mass distributed across Grade 3 severe DR, reflecting appropriate clinical uncertainty between adjacent advanced stages).
+   - **Model Confidence**: `85.99%` (high-confidence clinical classification firmly above the decision boundary).
    - **Triage Recommendation**: `Referable DR (Grade 4 - P1 Emergency Ophthalmic Review)`.
 
 4. **Under-30-Second Human-in-the-Loop Clinical Protocol**:
-   - **Seconds 0 to 10**: The specialist receives the dual-panel report. The Grad-CAM heatmap immediately guides visual gaze to the macular hemorrhage hotspot.
-   - **Seconds 10 to 20**: The specialist cross-references the left panel to confirm neovascularization and macular edema involvement.
-   - **Seconds 20 to 30**: The ophthalmologist signs off on the automated referral, routing the patient for immediate laser panretinal photocoagulation (PRP) or anti-VEGF injection at the district hospital.
+   - **Seconds 0 to 10**: The reviewing ophthalmologist receives the dual-panel report; the Grad-CAM focus map immediately directs visual gaze to the peripapillary neovascularization hotspot.
+   - **Seconds 10 to 20**: The specialist cross-references the left panel to confirm active vessel proliferation and hemorrhage involvement.
+   - **Seconds 20 to 30**: The ophthalmologist signs off on the automated referral, routing the patient for urgent laser panretinal photocoagulation (PRP) or anti-VEGF intervention at the district hospital.
 
 ---
 
