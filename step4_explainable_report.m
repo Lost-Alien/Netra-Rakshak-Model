@@ -108,7 +108,7 @@ fig = figure('Name', 'Netra Rakshak - Explainable AI Dashboard', ...
 % Panel A: Clean Camera Image
 subplot(1, 2, 1);
 imshow(resizedImg);
-title(sprintf('🏥 Input Fundus (True Level: %s)', trueClassLabel), ...
+title(sprintf('Input Fundus (True Level: %s)', trueClassLabel), ...
     'FontSize', 13, 'FontWeight', 'bold');
 
 % Panel B: Grad-CAM Visualization Overlay
@@ -119,7 +119,7 @@ set(hMap, 'AlphaData', 0.45);          % 45% transparency overlay
 colormap(gca, 'jet');                  % Medical thermal spectrum
 colorbar;
 axis image off;                        % Maintain proportions, hide axis ticks
-title('🔬 Clinically Evaluated Lesion Focus Map', 'FontSize', 13, 'FontWeight', 'bold');
+title('Clinically Evaluated Lesion Focus Map (Grad-CAM)', 'FontSize', 13, 'FontWeight', 'bold');
 hold off;
 
 % Bottom Status Annotation Box
