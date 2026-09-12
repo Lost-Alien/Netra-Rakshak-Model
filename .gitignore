@@ -1,0 +1,33 @@
+# ==============================================================================
+# NETRA RAKSHAK: MODEL REPOSITORY GITIGNORE
+# ==============================================================================
+
+# User-Specified Excluded Datasets and Cohorts
+1_APTOS_Data/
+drive/
+enhanced_dataset/
+idrid/
+messidor2/
+sample/
+sorted_dataset/
+
+# User-Specified Excluded File
+app1.mlapp
+
+# MATLAB Autosave and Cache Files
+*.asv
+*.slxc
+slprj/
+*.autosave
+*.m~
+*.mat~
+
+# System and OS Files
+Thumbs.db
+Desktop.ini
+.DS_Store
+
+# Temporary and Log Files
+*.log
+*.tmp
+*.bak
